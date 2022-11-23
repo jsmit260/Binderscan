@@ -1,0 +1,1 @@
+ for i in $(seq 1 4);do printf "outfiles\neth0\nnetwork_scope.txt" | ./el_segmentador.sh;done

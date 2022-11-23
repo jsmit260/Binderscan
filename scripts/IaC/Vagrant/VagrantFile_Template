@@ -1,0 +1,27 @@
+Vagrant.configure("2") do |config|
+
+config.ssh.insert_key = false
+config.vm.provider :virtualbox do |vb|
+  vb.memory = 256
+  vb.cpus = 1
+end
+
+#Disabling the default /vagrant share
+config.vm.synced_folder ".", "/vagrant", disabled: true
+MACHINE = [HOST_NAMES]
+host_ip = [HOST_BITS]
+# https://app.vagrantup.com/minimal -- Min Installs
+host_os = [HOST_OS]
+N = number_of_hosts_to_build
+#port_numbers = [PORTY_PORTS]
+
+(1..N).each do |i|
+config.vm.define "server#{i}" do |node|
+  node.vm.hostname = MACHINE[i-1]
+  node.vm.box = host_os[i-1]
+  node.vm.network :private_network,ip: host_ip[i-1]
+  node.vm.usable_port_range= 8000..15000
+  #node.vm.network "forwarded_port",guest:port_numbers[i],host:port_numbers[i]
+end
+end
+end
