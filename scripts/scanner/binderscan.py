@@ -310,8 +310,8 @@ def unicorn_udp_ports(the_range,top_20_ports,host_ips):
 
 
 # LOGIC
-
-for range in ranges:
+split_ranges = the_range.split(',')
+for range in split_ranges:
     # First Ping Sweep Entire Ranges if Class C
         
     host_ips = list(ipaddress.ip_network(range).hosts())
